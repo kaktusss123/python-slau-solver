@@ -6,7 +6,7 @@
 """
 
 
-def read_input(filename: str = 'input.txt') -> tuple:
+def read_input(filename) -> tuple:
     """
     Читает файл в 2 списка вида [[], []], []: матрица коэффициентов и свободных членов
     """
@@ -36,8 +36,8 @@ def sub_row(A, B, ind):
     Вычитает строку [ind + 1] из строки [ind]
     """
     for c in range(len(A[0])):
-        A[ind][c] -= A[ind+1][c]
-    B[ind] -= B[ind+1]
+        A[ind][c] -= A[ind + 1][c]
+    B[ind] -= B[ind + 1]
 
 
 def gauss(A, B):
@@ -47,16 +47,16 @@ def gauss(A, B):
     r = len(A[0]) - 1
     # Сначала приводим к нижнетреугольному виду методом Гаусса
     for c in range(len(A) - 1, 0, -1):
-        multiplier = A[r][c] / A[r-1][c]
-        mult_row(A, B, r-1, multiplier)
-        sub_row(A, B, r-1)
+        multiplier = A[r][c] / A[r - 1][c]
+        mult_row(A, B, r - 1, multiplier)
+        sub_row(A, B, r - 1)
         r -= 1
     r = 0
     # Затем нижнетреугольную матрицу приводим к диагонально все тем же методом Гаусса
-    for c in range(len(A)-1):
-        multiplier = A[r+1][c] / A[r][c]
+    for c in range(len(A) - 1):
+        multiplier = A[r + 1][c] / A[r][c]
         mult_row(A, B, r, multiplier)
-        sub_row(A, B, r-1)
+        sub_row(A, B, r - 1)
     answer = []
     # Ответ считаем как {свободный член} / {соответствующий элемент диагонали}
     for i in range(len(A)):
@@ -64,7 +64,7 @@ def gauss(A, B):
     return answer
 
 
-l, b = read_input()
+l, b = read_input('input.txt')
 ans = gauss(l, b)
 print(l, b, sep='\n')
 print('Answer:', ans)
